@@ -6,6 +6,7 @@ import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
+import io.micronaut.http.annotation.Status
 import io.micronaut.http.exceptions.HttpStatusException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -26,6 +27,7 @@ class PlexWebhookController(
      * (Micronaut will auto-parse it to a POJO *if* the sender says it's application/json
      */
     @Post(consumes = [MediaType.MULTIPART_FORM_DATA], single = true)
+    @Status(HttpStatus.NO_CONTENT)
     fun acceptWebhook(body: Map<String, String>) {
         val payload = try {
             objectMapper.readValue(body["payload"]!!, PlexWebhook::class.java)
