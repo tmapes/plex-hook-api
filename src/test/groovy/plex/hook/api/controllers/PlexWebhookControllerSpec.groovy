@@ -60,7 +60,7 @@ class PlexWebhookControllerSpec extends AbstractSpecification {
 
         def caught = thrown(HttpStatusException)
         HttpStatus.BAD_REQUEST == caught.status
-        caught.message
+        "Failed to parse {payload=value}" == caught.message
 
         0 * _
     }
