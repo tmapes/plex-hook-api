@@ -10,8 +10,8 @@ import javax.inject.Singleton
 @Context
 @Singleton
 class HookProcessor(
-        private val plexConfig: PlexConfig,
-        private val metricsService: MetricsService,
+    private val plexConfig: PlexConfig,
+    private val metricsService: MetricsService,
 ) {
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)
 

@@ -14,8 +14,8 @@ import plex.hook.api.services.HookProcessor
 
 @Controller
 class PlexWebhookController(
-        private val hookProcessor: HookProcessor,
-        private val objectMapper: ObjectMapper
+    private val hookProcessor: HookProcessor,
+    private val objectMapper: ObjectMapper
 ) {
 
     private val logger: Logger = LoggerFactory.getLogger(this::class.java)

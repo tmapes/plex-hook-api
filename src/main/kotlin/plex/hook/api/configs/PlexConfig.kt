@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 @ConfigurationProperties("plex")
 data class PlexConfig @ConfigurationInject constructor(
-        val enabledEvents: List<PlexEvent>,
-        val enabledServers: Set<String>,
-        val enabledUsers: Set<String>,
+    val enabledEvents: List<PlexEvent>,
+    val enabledServers: Set<String>,
+    val enabledUsers: Set<String>,
 )
