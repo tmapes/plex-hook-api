@@ -14,15 +14,15 @@ class PlexEventDeserializerSpec extends AbstractSpecification {
     @Unroll
     def "#scenario results in #expectedOutput"() {
         expect:
-        def inputJson = "\"$scenario\""
-        def output = objectMapper.readValue(inputJson, PlexEvent.class)
+        def output = objectMapper.readValue(scenario, PlexEvent.class)
         expectedOutput == output
 
         where:
-        scenario       || expectedOutput
-        "media.play"   || PlexEvent.PLAY
-        "media.pause"  || PlexEvent.PAUSE
-        "media.resume" || PlexEvent.RESUME
-        "media.stop"   || PlexEvent.STOP
+        scenario             || expectedOutput
+        "\"media.play\""     || PlexEvent.PLAY
+        "\"media.pause\""    || PlexEvent.PAUSE
+        "\"media.resume\""   || PlexEvent.RESUME
+        "\"media.stop\""     || PlexEvent.STOP
+        "\"server.deleted\"" || PlexEvent.UNKNOWN
     }
 }
