@@ -1,0 +1,36 @@
+micronaut:
+  application:
+    name: plexHookApi
+  server:
+    port: 8080
+    multipart:
+      enabled: true
+    context-path: "/plex_hooks"
+  metrics:
+    enabled: true
+    export:
+      influx:
+        enabled: false
+        step: PT1M
+        descriptions: false
+
+endpoints:
+  all:
+    enabled: true
+    sensitive: false
+
+jackson:
+  deserialization:
+    fail-on-unknown-properties: false
+  property-naming-strategy: SNAKE_CASE
+
+plex:
+  enabled-events:
+    - PLAY
+    - PAUSE
+    - STOP
+    - RESUME
+  enabled-servers:
+    - "plex-server"
+  enabled-users:
+    - "plex-user"
