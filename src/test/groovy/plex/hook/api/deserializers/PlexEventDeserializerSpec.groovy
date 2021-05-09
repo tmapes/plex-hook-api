@@ -23,6 +23,7 @@ class PlexEventDeserializerSpec extends AbstractSpecification {
         "\"media.pause\""    || PlexEvent.PAUSE
         "\"media.resume\""   || PlexEvent.RESUME
         "\"media.stop\""     || PlexEvent.STOP
+        "\"library.new\""    || PlexEvent.LIBRARY_NEW_ITEM
         "\"server.deleted\"" || PlexEvent.UNKNOWN
     }
 }

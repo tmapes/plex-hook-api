@@ -31,7 +31,9 @@ plex:
     - PAUSE
     - STOP
     - RESUME
+    - LIBRARY_NEW_ITEM
   enabled-servers:
     - "plex-server"
+  enable-all-users: true
   enabled-users:
     - "plex-user"
