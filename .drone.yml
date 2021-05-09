@@ -20,8 +20,10 @@ steps:
         - main
     settings:
       dry_run: true
-      username: username
-      password: password
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
       registry: http://docker.internal.mapes.info
       insecure: true
       repo: docker.internal.mapes.info/hue-bridge-api
