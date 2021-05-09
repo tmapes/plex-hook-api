@@ -1,0 +1,65 @@
+kind: pipeline
+type: docker
+name: plex-hook-api
+
+steps:
+  - name: build and test
+    image: adoptopenjdk/openjdk11:jdk-11.0.6_10-alpine
+    environment:
+      GRADLE_USER_HOME: .gradle
+      GRADLE_OPTS: -Dorg.gradle.daemon=false -Dorg.gradle.workers.max=1 -Dorg.gradle.parallel=false
+    commands:
+      - ./gradlew buildLayers
+
+  - name: docker publish dry run
+    image: plugins/docker
+    when:
+      event:
+        - pull_request
+      branch:
+        - main
+    settings:
+      dry_run: true
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      registry: http://docker.internal.mapes.info
+      insecure: true
+      repo: docker.internal.mapes.info/plex-hook-api
+      mirror: https://docker.mapes.info
+      tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT:0:8}'
+
+  - name: docker publish snapshot
+    image: plugins/docker
+    when:
+      event:
+        - push
+      branch:
+        - main
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      registry: http://docker.internal.mapes.info
+      insecure: true
+      repo: docker.internal.mapes.info/plex-hook-api
+      mirror: https://docker.mapes.info
+      tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT:0:8}'
+
+  - name: docker publish release
+    image: plugins/docker
+    when:
+      event:
+        - tag
+    settings:
+      username:
+        from_secret: docker_username
+      password:
+        from_secret: docker_password
+      registry: http://docker.internal.mapes.info
+      insecure: true
+      repo: docker.internal.mapes.info/plex-hook-api
+      mirror: https://docker.mapes.info
+      tags: '${DRONE_TAG}'
