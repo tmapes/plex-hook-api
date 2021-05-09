@@ -6,6 +6,7 @@ micronaut:
     multipart:
       enabled: true
     context-path: "/plex_hooks"
+    thread-selection: auto
   metrics:
     enabled: true
     export:

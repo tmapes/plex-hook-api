@@ -5,6 +5,6 @@ fun main(args: Array<String>) {
 	build()
 	    .args(*args)
 		.packages("plex.hook.api")
+		.banner(false)
 		.start()
 }
-
