@@ -2,6 +2,7 @@ package plex.hook.api.repositories
 
 import com.mongodb.client.model.IndexOptions
 import io.micronaut.context.annotation.Context
+import io.micronaut.context.annotation.Requires
 import io.micronaut.context.annotation.Value
 import org.bson.*
 import org.litote.kmongo.*
@@ -10,6 +11,7 @@ import plex.hook.api.domains.HookDocument
 import javax.annotation.PreDestroy
 import javax.inject.Singleton
 
+@Requires(property = "mongodb.enabled", value = "true")
 @Context
 @Singleton
 class HookRepository(

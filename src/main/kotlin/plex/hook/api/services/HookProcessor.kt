@@ -12,17 +12,23 @@ import javax.inject.Singleton
 @Singleton
 class HookProcessor(
     private val hookValidationService: HookValidationService,
-    private val hookRepository: HookRepository
+    private val hookRepository: HookRepository?
 ) {
-    private val logger: Logger = LoggerFactory.getLogger(this::class.java)
+    private final val logger: Logger = LoggerFactory.getLogger(this::class.java)
+    private final val mongoDisabled = hookRepository == null
 
     fun processHook(hook: PlexWebhook) {
         logger.info("[Hook Received] $hook")
 
         if (!hookValidationService.shouldIngestHook(hook)) return
 
+        if (mongoDisabled) {
+            logger.info("Not Saving Hook because Mongo Integration Is Disabled")
+            return
+        }
+
         hook.toHookDocument().let {
-            hookRepository.saveWebhook(it)
+            hookRepository!!.saveWebhook(it)
             logger.info("Saved $it")
         }
 
@@ -30,7 +36,10 @@ class HookProcessor(
 
     fun getSavedHooks(eventType: String?, userName: String?, page: Int, perPage: Int): List<HookDocument> {
         logger.info("[Lookup Request] eventType '$eventType' userName '$userName' page '$page' perPage '$perPage'")
-        return hookRepository.getSavedHooks(eventType, userName, limit = perPage, skipCount = page * perPage)
+
+        if (mongoDisabled) return emptyList()
+
+        return hookRepository!!.getSavedHooks(eventType, userName, limit = perPage, skipCount = page * perPage)
     }
 
 }

@@ -27,6 +27,7 @@ jackson:
   date-format: "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
 
 mongodb:
+  enabled: false
   uri: "mongodb://username:password@localhost:27017/?authSource=admin"
   db: "plexHooks"
   collection: "plexHooks"
