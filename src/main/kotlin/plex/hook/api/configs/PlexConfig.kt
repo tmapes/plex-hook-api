@@ -12,5 +12,6 @@ import javax.inject.Singleton
 data class PlexConfig @ConfigurationInject constructor(
     val enabledEvents: List<PlexEvent>,
     val enabledServers: Set<String>,
+    val enableAllUsers: Boolean,
     val enabledUsers: Set<String>,
 )
