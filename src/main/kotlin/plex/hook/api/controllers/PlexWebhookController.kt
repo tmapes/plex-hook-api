@@ -4,12 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
-import io.micronaut.http.annotation.Status
+import io.micronaut.http.annotation.*
 import io.micronaut.http.exceptions.HttpStatusException
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import plex.hook.api.domains.HookDocument
 import plex.hook.api.models.PlexWebhook
 import plex.hook.api.services.HookProcessor
 
@@ -37,6 +36,16 @@ class PlexWebhookController(
             throw HttpStatusException(HttpStatus.BAD_REQUEST, message)
         }
         hookProcessor.processHook(payload)
+    }
+
+    @Get(produces = [MediaType.APPLICATION_JSON])
+    fun getSavedHooks(
+        @QueryValue("event_type") eventType: String?,
+        @QueryValue("user_name") userName: String?,
+        @QueryValue("page", defaultValue = "0") page: Int,
+        @QueryValue("per_page", defaultValue = "100") perPage: Int,
+    ): List<HookDocument> {
+        return hookProcessor.getSavedHooks(eventType, userName, page, perPage)
     }
 
 }
