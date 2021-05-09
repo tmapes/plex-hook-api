@@ -28,7 +28,7 @@ steps:
       insecure: true
       repo: docker.internal.mapes.info/hue-bridge-api
       mirror: https://docker.mapes.info
-      tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT_HASH:0:8}'
+      tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT:0:8}'
 
   - name: docker publish snapshot
     image: plugins/docker
