@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: hue-bridge-api
+name: plex-hook-api
 
 steps:
   - name: build and test
@@ -26,7 +26,7 @@ steps:
         from_secret: docker_password
       registry: http://docker.internal.mapes.info
       insecure: true
-      repo: docker.internal.mapes.info/hue-bridge-api
+      repo: docker.internal.mapes.info/plex-hook-api
       mirror: https://docker.mapes.info
       tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT:0:8}'
 
@@ -44,9 +44,9 @@ steps:
         from_secret: docker_password
       registry: http://docker.internal.mapes.info
       insecure: true
-      repo: docker.internal.mapes.info/hue-bridge-api
+      repo: docker.internal.mapes.info/plex-hook-api
       mirror: https://docker.mapes.info
-      tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT_HASH:0:8}'
+      tags: 'b${DRONE_BUILD_NUMBER}-${DRONE_COMMIT:0:8}'
 
   - name: docker publish release
     image: plugins/docker
@@ -60,6 +60,6 @@ steps:
         from_secret: docker_password
       registry: http://docker.internal.mapes.info
       insecure: true
-      repo: docker.internal.mapes.info/hue-bridge-api
+      repo: docker.internal.mapes.info/plex-hook-api
       mirror: https://docker.mapes.info
       tags: '${DRONE_TAG}'
