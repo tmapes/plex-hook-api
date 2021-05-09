@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  mongodb:
+    image: docker.mapes.info/mongo:4
+    ports:
+      - "27017:27017/tcp"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: username
+      MONGO_INITDB_ROOT_PASSWORD: password
